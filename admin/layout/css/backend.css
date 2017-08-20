@@ -20,3 +20,11 @@ body {
 .login .btn {
   background-color: #008dde;
 }
+
+/* navbar */
+.navbar {
+  border-radius: 0;
+}
+.navbar .navbar-brand {
+  font-size: 1em;
+}
