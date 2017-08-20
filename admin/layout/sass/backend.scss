@@ -1,0 +1,25 @@
+
+/* Global style */
+
+body{
+	background-color:#F4F4F4;
+}
+
+/* login form */
+
+.login{
+	width:400px;
+	margin:150px auto;
+	h4{
+		color:#888;
+	}
+	input{
+		margin-bottom: 10px;
+	}
+	.form-control{
+		background-color: #EAEAEA;
+	}
+	.btn{
+		background-color: #008dde;
+	}
+}
