@@ -6,8 +6,13 @@ function lang($phrase) {
 	static $lang = array(
 
 		// Navbar keys
-		'Logo' => 'Eltaher',
-		'Cat'   => 'Categories',
+		'Logo' 		=> 'Home',
+		'cat'   	=> 'Categories',
+		'item'   	=> 'Items',
+		'member'   	=> 'Members',
+		'statistic'   => 'Statistics',
+		'log'   	=> 'Logs',
+		'name'   	=> 'Eltaher',
 
 		);
 
