@@ -32,3 +32,15 @@ body{
 		font-size: 1em;
 	}
 }
+
+/* Edit Member Page */
+.form-group{
+	position: relative;
+	.asterisk{
+		position: absolute;
+		top: 13px;
+		right:25px;
+		font-size: 24px;
+		color:red;
+	}
+}

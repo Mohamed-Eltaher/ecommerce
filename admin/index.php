@@ -6,6 +6,7 @@
 	}; */
 
 	$noNavbar = "";   // variable to prevent showing navbar at admin page
+	$pageTitle = 'login';
 
 	include 'init.php';
 
