@@ -1,6 +1,6 @@
 /* Global style */
 body {
-  background-color: #F4F4F4;
+  background-color: #F4F4B2;
 }
 
 /* login form */
@@ -41,9 +41,20 @@ body {
   color: red;
 }
 
-/* Add Member Page */
-.show-pass{
-  position: absolute;
-  top: 8px;
-  right: -20px;
+/* DashBoard Page */
+.main {
+  margin-top: 30px;
+}
+.main .states {
+  background: white;
+  padding: 25px 0;
+  font-size: 18px;
+}
+.main .states span {
+  display: block;
+  font-size: 35px;
+}
+
+.panels {
+  margin-top: 30px;
 }

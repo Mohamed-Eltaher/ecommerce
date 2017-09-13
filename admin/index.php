@@ -1,9 +1,9 @@
 <?php
 
 	session_start();
-	/*if (isset($_SESSION['Username'])) {
+	if (isset($_SESSION['Username'])) {
 		header('Location: dashboard.php'); // Redirect To Dashboard Page
-	}; */
+	}; 
 
 	$noNavbar = "";   // variable to prevent showing navbar at admin page
 	$pageTitle = 'login';

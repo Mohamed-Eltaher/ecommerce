@@ -13,14 +13,17 @@ $pageTitle = 'Members';
 if (isset($_SESSION['Username'])) {
 	include 'init.php';
 	$do = isset($_GET['do']) ? $_GET['do'] : 'mange';
-	if ($do == 'manage') { //manage page
+	if ($do == 'manage') { 
+	####################################
+	#### Manage Page
+	####################################
 		// select all users except Admin 
 		$stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1");
 		// execute the statement
 		$stmt->execute();
 		// Assign the statement to variable
 		$rows = $stmt->fetchAll();
-	 ?>
+?>
 		<h1 class="text-center">Manage Member</h1>
 		<div class="container">
 			<div class="table-responsive">
@@ -40,35 +43,54 @@ if (isset($_SESSION['Username'])) {
 							echo '<td>' . $row['Username'] . '</td>';
 							echo '<td>' . $row['Email'] . '</td>';
 							echo '<td>' . $row['Fullname'] . '</td>';
-							echo '<td> </td>';
-							echo "<td> <a href='members.php?do=Edit&userid=" . $row['UserID'] ."' class='btn btn-success'>Edit</a>
-							<a href='members.php?do=delete' class='btn btn-danger'>Delete</a>
+							echo '<td>' . $row['Date'] . '</td>';
+							echo "<td> <a href='members.php?do=Edit&userid=" . $row['UserID'] ."' class='btn btn-success'><i class='fa fa-edit'></i> Edit</a>
+							<a href='members.php?do=delete&userid=" . $row['UserID'] ."' class='btn btn-danger confirm'><i class='fa fa-close'></i> Delete</a>
 							 </td>";	
 						echo '</tr>';
 					}
 					?>
 				</table>
 			</div>
-			<a href='members.php?do=add' class="btn btn-primary"><i class="fa fa-plus"></i> Add new member</a>
+			<a href='members.php?do=add' class="btn btn-primary"><i class="fa fa-plus"></i> new member</a>
 		</div>
-	<?php } elseif ($do == 'delete') {  // Delete Page
+	<?php } elseif ($do == 'delete') {  
+	####################################
+	#### Delete Page
+	####################################	
+		//if condition for security purposes to check if the user exist
+		$userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) :  0;	
+		$stmt = $con->prepare("SELECT * FROM users WHERE UserID = ? LIMIT 1");
+		$stmt->execute(array($userid));
+		$count = $stmt->rowCount(); 
 
-		echo 'delete page';
-
+		if ($count > 0) {
+			$stmt = $con->prepare("DELETE FROM users WHERE userid= :zuser");
+			$stmt->bindparam(":zuser", $userid);
+			$stmt->execute();
+			// echo success message ?>
+			<div class='alert alert-success'>
+			<?php echo  $stmt->rowCount() . 'Record Deleted';
+			echo "</div>"; 
+		} else{
+			$theMsg = "<div class='alert alert-danger'>There is no member with this ID</div>";
+			redirectHome($theMsg, 'back', 5); 
+		}
 	}
-	 elseif ($do == 'add') { ?>
-		
+	 elseif ($do == 'add') {
+	####################################
+	#### ADD Page
+	####################################
+	?>	
 		<h1 class="text-center">Add Member</h1>
 			<div class="container">
-				<form METHOD="POST" action="?do=insert" class="form-horizontal">
-				
+				<form METHOD="POST" action="?do=insert" class="form-horizontal">		
 					<div class="form-group form-group-lg">
 						<label class="control-label col-md-2 col-md-offset-1">User Name</label>
 						<div class="col-md-6">
 							<input type="text" name="username" class="form-control" autocomplete="off" required="required">
 						</div>
 					</div>
-
 					<div class="form-group form-group-lg">
 						<label class="control-label col-md-2 col-md-offset-1">Password</label>
 						<div class="col-md-6">	
@@ -76,21 +98,18 @@ if (isset($_SESSION['Username'])) {
 							<i class="show-pass fa fa-eye fa-2x"></i>
 						</div>
 					</div>
-
 					<div class="form-group form-group-lg">
 						<label class="control-label col-md-2 col-md-offset-1">Email</label>
 						<div class="col-md-6">
 							<input type="Email" name="email" class="form-control" autocomplete="off" required="required">
 						</div>
 					</div>
-
 					<div class="form-group form-group-lg">
 						<label class="control-label col-md-2 col-md-offset-1">Full Name</label>
 						<div class="col-md-6">
 							<input type="text" name="fullname" class="form-control" autocomplete="off" required="required">
 						</div>
 					</div>
-
 					<div class="form-group">
 						<div class="col-md-4 col-md-offset-4">
 							<input type="submit" value="ADD" class="form-control btn-primary">
@@ -101,6 +120,9 @@ if (isset($_SESSION['Username'])) {
 	<?php }
 
 	elseif ($do == 'insert') {
+		####################################
+		#### Insert Page
+		####################################
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			echo "<div class='container'>";
 			echo "<h1 class='text-center'>Update Member</h1>";
@@ -136,9 +158,14 @@ if (isset($_SESSION['Username'])) {
 			}
 
 			if (empty($formErorres)) {
+				// check if the member already exist in database
+				$check = checkItem("Username", "users", $user);
+				if ($check == 1) {
+					echo 'Sorry, this member exist in database';
+				} else{
 				// insert userinfo into DP
-				$stmt = $con->prepare("INSERT INTO users(Username, Password, Email, Fullname)
-										 VALUES(:zuser, :zpass, :zmail, :zname) ");
+				$stmt = $con->prepare("INSERT INTO users(Username, Password, Email, Fullname, Date)
+										 VALUES(:zuser, :zpass, :zmail, :zname, now()) ");
 				$stmt->execute(array(
 						'zuser' => $user,
 						'zpass' => $hashpass,
@@ -148,16 +175,23 @@ if (isset($_SESSION['Username'])) {
 				// echo success message ?>
 				<div class='alert alert-success'>
 				<?php echo  $stmt->rowCount() . 'Record updated';
-				echo "</div>"; 
+				echo "</div>";
+
+				redirectHome('', 'back'); 
+				}
 			}
 			
 		} else {
-			echo 'sorry you can not browse this page directly';
+			$theMsg = "<div class='alert alert-danger'>sorry, there is no such id</div>";
+			redirectHome($theMsg, 5);
 		}
 		echo "</div>";	
 	}
 	
-	elseif ($do == 'Edit') { # Edit page
+	elseif ($do == 'Edit') {
+	####################################
+	#### Edit Page
+	####################################
 		//if condition for security purposes
 		$userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) :  0;	
 		$stmt = $con->prepare("SELECT * FROM users WHERE UserID = ? LIMIT 1");
@@ -165,7 +199,7 @@ if (isset($_SESSION['Username'])) {
 		$row = $stmt->fetch();
 		$count = $stmt->rowCount(); 
 
-		if ($stmt->rowCount() > 0) { ?>
+		if ($count > 0) { ?>
 
 			<h1 class="text-center">Edit Member</h1>
 			<div class="container">
@@ -177,7 +211,6 @@ if (isset($_SESSION['Username'])) {
 							<input type="text" name="username" class="form-control" value="<?php echo $row['Username'] ?>" autocomplete="off" required="required">
 						</div>
 					</div>
-
 					<div class="form-group form-group-lg">
 						<label class="control-label col-md-2 col-md-offset-1">Password</label>
 						<div class="col-md-6">
@@ -185,21 +218,18 @@ if (isset($_SESSION['Username'])) {
 							<input type="Password" name="new-password" class="form-control" autocomplete="new-password">
 						</div>
 					</div>
-
 					<div class="form-group form-group-lg">
 						<label class="control-label col-md-2 col-md-offset-1">Email</label>
 						<div class="col-md-6">
 							<input type="Email" name="email" class="form-control" value="<?php echo $row['Email'] ?>" autocomplete="off" required="required">
 						</div>
 					</div>
-
 					<div class="form-group form-group-lg">
 						<label class="control-label col-md-2 col-md-offset-1">Full Name</label>
 						<div class="col-md-6">
 							<input type="text" name="fullname" class="form-control" value="<?php echo $row['Fullname'] ?>" autocomplete="off" required="required">
 						</div>
 					</div>
-
 					<div class="form-group">
 						<div class="col-md-4 col-md-offset-4">
 							<input type="submit" value="Update" class="form-control btn-primary" autocomplete="new-password">
@@ -209,13 +239,16 @@ if (isset($_SESSION['Username'])) {
 			</div>
 
 	<?php	} else {
-
-		echo "sorry, there is no such id";
+			$theMsg = "<div class='alert alert-danger'>sorry, there is no such id</div>";
+			redirectHome($theMsg, 5);
 	} 
 	 	
- } // End Edit Page 
+ } 
 
 	elseif ($do == 'update') {
+		####################################
+		#### Update Page
+		####################################
 		echo "<div class='container'>";
 		echo "<h1 class='text-center'>Update Member</h1>";
 
@@ -256,10 +289,12 @@ if (isset($_SESSION['Username'])) {
 				<div class='alert alert-success'>
 				<?php echo  $stmt->rowCount() . 'Record updated';
 				echo "</div>"; 
+				redirectHome("" ,'back', 5);
 			}
 			
 		} else {
-			echo 'sorry you can not browse this page directly';
+			$theMsg = "<div class='alert alert-danger'>sorry you can not browse this page directly</div>";
+			redirectHome($theMsg, 5);
 		}	
 	}
 	echo "</div>";

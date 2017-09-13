@@ -1,4 +1,4 @@
-/*global console, alert, prompt, $*/
+/*global console, alert, prompt, confirm, $*/
 
 $(function () {
     'use strict';
@@ -25,5 +25,10 @@ $(function () {
         passField.attr('type', 'text');
     }, function () {
         passField.attr('type', 'password');
+    });
+
+    //confirmation to delete the member
+    $('.confirm').click(function () {
+        return confirm('Are You Sure?');
     });
 });

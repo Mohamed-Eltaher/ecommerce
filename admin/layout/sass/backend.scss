@@ -2,7 +2,7 @@
 /* Global style */
 
 body{
-	background-color:#F4F4F4;
+	background-color:#F4F4B2;
 }
 
 /* login form */
@@ -43,4 +43,23 @@ body{
 		font-size: 24px;
 		color:red;
 	}
+}
+
+/* DashBoard Page */
+
+.main{
+	margin-top:30px;
+	.states{
+		background: white;
+   	    padding: 25px 0;
+   	    font-size: 18px;
+   	    span{
+   	    	display: block;
+   	    	font-size: 35px;
+   	    }
+	}
+}
+
+.panels{
+	margin-top:30px;
 }
