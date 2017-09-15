@@ -5,6 +5,9 @@ session_start();
 if (isset($_SESSION['Username'])) {
 	$pageTitle = 'Dashboard';
 	include 'init.php'; 
+	// get latest users function
+	$latest = 5;
+	$getLatest = getLatest("*", "users", "UserID", $latest);
 	/* start Dashborad page */
 	?>
 	<div class="container">
@@ -20,7 +23,7 @@ if (isset($_SESSION['Username'])) {
 				<div class="col-md-3">
 					<div class="states">
 						Pending Members
-						<span>20</span>
+						<span><a href="members.php?do=manage&page=pending"><?php echo checkItem('RegStatus', 'users', 0) ?></a></span>
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -41,9 +44,13 @@ if (isset($_SESSION['Username'])) {
 			<div class="row">
 				<div class="col-md-6">
 					<div class="panel panel-default">
-					  <div class="panel-heading">Latest Registered Users</div>
+					  <div class="panel-heading">Latest <?php echo $latest; ?> Registered Users</div>
 					  <div class="panel-body">
-					    Panel content
+					    <?php
+							foreach ($getLatest as $user) {
+								echo $user['Username'] . '</br>';
+							}
+					    ?>
 					  </div>
 					</div>
 				</div>

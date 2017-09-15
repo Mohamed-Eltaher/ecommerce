@@ -62,3 +62,20 @@ function countItems($item, $table) {
 	$stmt2->execute();
 	return $stmt2->fetchColumn();
 }
+
+/*
+** get latest records function V 0.1
+** Function To get latest items from DP
+** $select = The Item To Count
+** $table = The Table To Choose From
+** $limit = number of items to get
+*/
+
+function getLatest($select, $table, $order, $limit = 5) {
+	global $con;
+	$stmGet = $con->prepare("SELECT $select FROM $table ORDER BY $order DESC LIMIT $limit");
+	$stmGet->execute();
+	$rows = $stmGet->fetchAll();
+	return $rows;
+}
+
