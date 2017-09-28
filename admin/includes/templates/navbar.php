@@ -14,8 +14,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#"><?php echo lang('cat') ?> <span class="sr-only">(current)</span></a></li>
-        <li><a href="#"><?php echo lang('item') ?> <span class="sr-only">(current)</span></a></li>
+        <li><a href="categories.php"><?php echo lang('cat') ?> <span class="sr-only">(current)</span></a></li>
+        <li><a href="items.php"><?php echo lang('item') ?> <span class="sr-only">(current)</span></a></li>
         <li><a href="members.php?do=manage&userid=<?php echo $_SESSION['ID'] ?>"><?php echo lang('member') ?> <span class="sr-only">(current)</span></a></li>
         <li><a href="#"><?php echo lang('statistic') ?> <span class="sr-only">(current)</span></a></li>
         <li><a href="#"><?php echo lang('log') ?> <span class="sr-only">(current)</span></a></li>

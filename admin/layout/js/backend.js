@@ -31,4 +31,19 @@ $(function () {
     $('.confirm').click(function () {
         return confirm('Are You Sure?');
     });
+
+    // full-view option
+    $('.panel-body h3').click(function () {
+        $(this).next('.full-view').fadeToggle();
+    });
+
+    $('.options span').click(function () {
+        $(this).addClass('active').siblings('span').removeClass('active');
+        if ($(this).data('view') === 'full') {
+            $('.full-view').fadeIn();
+        } else {
+            $('.full-view').fadeOut();
+        }
+    });
+
 });

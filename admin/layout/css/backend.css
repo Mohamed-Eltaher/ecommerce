@@ -58,3 +58,32 @@ body {
 .panels {
   margin-top: 30px;
 }
+
+/* categories page */
+.options span {
+  cursor: pointer;
+}
+
+.active {
+  color: red;
+}
+
+.panel-body h3 {
+  cursor: pointer;
+  margin-top: 0;
+}
+.panel-body hr {
+  margin-top: 10px;
+}
+.panel-body .cat {
+  overflow: hidden;
+}
+.panel-body .hidden-buttons {
+  margin-right: -94px;
+}
+
+.cat:hover .hidden-buttons {
+  margin-right: 0;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
