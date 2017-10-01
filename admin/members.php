@@ -12,7 +12,7 @@ $pageTitle = 'Members';
 
 if (isset($_SESSION['Username'])) {
 	include 'init.php';
-	$do = isset($_GET['do']) ? $_GET['do'] : 'mange';
+	$do = isset($_GET['do']) ? $_GET['do'] : 'manage';
 	if ($do == 'manage') { 
 	####################################
 	#### Manage Page
@@ -73,7 +73,7 @@ if (isset($_SESSION['Username'])) {
 		$count = $stmt->rowCount(); 
 
 		if ($count > 0) {
-			$stmt = $con->prepare("DELETE FROM users WHERE userid= :zuser");
+			$stmt = $con->prepare("DELETE FROM users WHERE UserID= :zuser");
 			$stmt->bindparam(":zuser", $userid);
 			$stmt->execute();
 			// echo success message ?>
