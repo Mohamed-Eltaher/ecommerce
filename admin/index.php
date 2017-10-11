@@ -1,15 +1,13 @@
 <?php
-
 	session_start();
+	// if the user is registedred in the session, take him to the DashB
 	if (isset($_SESSION['Username'])) {
 		header('Location: dashboard.php'); // Redirect To Dashboard Page
 	}; 
-
 	$noNavbar = "";   // variable to prevent showing navbar at admin page
 	$pageTitle = 'login';
 
 	include 'init.php';
-
 	// Check If User Coming From HTTP Post Request
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$username = $_POST['user'];
@@ -39,8 +37,7 @@
 			header('Location: dashboard.php'); // Redirect To Dashboard Page
 			exit();
 		}
-	}
-	
+	}	
 ?>	
 	<!-- Admin Login Form-->	
 	<form class="login" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
@@ -50,6 +47,4 @@
 		<input class="btn btn-primary btn-lg btn-block" type="submit" value="login" />
 	</form>	
 
-<?php
-	include $tmp . 'footer.php';
-?>	
+<?php include $tmp . 'footer.php'; ?>	

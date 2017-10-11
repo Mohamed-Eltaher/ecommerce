@@ -3,25 +3,7 @@ body {
   background-color: #ccc;
 }
 
-/* login form */
-.login {
-  width: 400px;
-  margin: 150px auto;
-}
-.login h4 {
-  color: #888;
-}
-.login input {
-  margin-bottom: 10px;
-}
-.login .form-control {
-  background-color: #EAEAEA;
-}
-.login .btn {
-  background-color: #008dde;
-}
-
-/* navbar */
+/* Header*/
 .navbar {
   border-radius: 0;
 }
@@ -29,61 +11,79 @@ body {
   font-size: 1em;
 }
 
-/* Edit Member Page */
-.form-group {
+.upper-bar {
+  background-color: #2f2828;
+  padding: 5px;
+  color: #fff;
+}
+
+/* login | signout page */
+.in-out span {
+  cursor: pointer;
+}
+
+.selected {
+  color: red;
+}
+
+.inlog {
+  max-width: 450px;
+  margin: 50px auto;
+}
+.inlog input {
+  margin-bottom: 10px;
+}
+.inlog .form-group {
   position: relative;
 }
-.form-group .asterisk {
+.inlog .form-group .asterisk {
   position: absolute;
   top: 13px;
   right: 25px;
   font-size: 24px;
   color: red;
 }
-
-/* DashBoard Page */
-.main {
-  margin-top: 30px;
-}
-.main .states {
-  background: white;
-  padding: 25px 0;
-  font-size: 18px;
-}
-.main .states span {
-  display: block;
-  font-size: 35px;
+.inlog .form-group .form-control {
+  background-color: #EAEAEA;
 }
 
-.panels {
-  margin-top: 30px;
+.signup {
+  display: none;
 }
 
 /* categories page */
-.options span {
-  cursor: pointer;
+.price-country, .item .img-thumbnail .price, .item .img-thumbnail .country {
+  position: absolute;
+  background: #ccc;
+  padding: 1px 7px;
+  -webkit-box-shadow: 1px 2px 5px;
+          box-shadow: 1px 2px 5px;
+  border-radius: 5px;
 }
 
-.active {
-  color: red;
+.item {
+  background: #FFF;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+.item .img-thumbnail {
+  position: relative;
+}
+.item .img-thumbnail .price {
+  top: 15px;
+  left: 4px;
+}
+.item .img-thumbnail .country {
+  bottom: 15px;
+  right: 4px;
 }
 
-.panel-body h3 {
-  cursor: pointer;
-  margin-top: 0;
-}
-.panel-body hr {
-  margin-top: 10px;
-}
-.panel-body .cat {
-  overflow: hidden;
-}
-.panel-body .hidden-buttons {
-  margin-right: -94px;
-}
-
-.cat:hover .hidden-buttons {
-  margin-right: 0;
-  -webkit-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
+/* profile page */
+/* Footer */
+footer {
+  background-color: black;
+  padding: 20px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }

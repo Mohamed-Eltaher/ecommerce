@@ -63,6 +63,24 @@ function countItems($item, $table) {
 	return $stmt2->fetchColumn();
 }
 
+/* check user reg status */
+
+function userStatus($user) {
+	global $con;
+	$stmt = $con->prepare("SELECT 
+									Username, Regstatus 
+								FROM 
+									users 
+								WHERE 
+									Username = ? 
+								AND 
+									Regstatus = 0 ");
+
+		$stmt->execute(array($user));
+		$count = $stmt->rowCount();
+		return $count;
+}
+
 /*
 ** get latest records function V 0.1
 ** Function To get latest items from DP

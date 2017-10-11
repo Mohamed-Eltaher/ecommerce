@@ -61,8 +61,13 @@ if (isset($_SESSION['Username'])) {
 					    if (!empty($getLatestUsers)) { 
 							foreach ($getLatestUsers as $user) { ?>
 							<li class="list-unstyled clearfix">
-								<?php echo $user['Username']; ?>			
+								<?php echo $user['Username']; ?>		
 								<a class='btn btn-primary pull-right' href="members.php?do=Edit&userid=<?php echo $user['UserID'] ?>" >Edit</a>
+								<?php
+								$row = userStatus($user['Username']);
+								 if ($user['RegStatus'] == 0 ) {
+								 	echo "<a href='members.php?do=activate&userid=" . $user['UserID'] ."' class='btn btn-info pull-right'> Activate</a>";
+								 }	?>	
 							</li>		 
 						<?php } } else{ echo ' there is no users to show';} ?>
 					  </div>

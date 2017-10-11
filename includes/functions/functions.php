@@ -24,6 +24,25 @@ function getItems($catID) {
 }
 
 
+/* check user reg status */
+
+function userStatus($user) {
+	global $con;
+	$stmt = $con->prepare("SELECT 
+									Username, Regstatus 
+								FROM 
+									users 
+								WHERE 
+									Username = ? 
+								AND 
+									Regstatus = 0 ");
+
+		$stmt->execute(array($user));
+		$status = $stmt->rowCount();
+		return $status;
+}
+
+
 // function to type page name
 function page_title () {
 	global $pageTitle;
@@ -33,6 +52,8 @@ function page_title () {
 		echo 'Default';
 	}
 }
+
+
 
 /*
 ** Home Redirect Function v2.0

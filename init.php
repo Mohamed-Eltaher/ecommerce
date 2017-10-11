@@ -1,6 +1,16 @@
 <?php
 
-include 'admin/connect.php';    // so if you needed db, just include init.php in your page
+// Error Reporting
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
+
+include 'admin/connect.php'; // so if you needed db, just include init.php in your page
+
+// Registering session user in a var to use it everywhere
+$sessionUser = "";
+if (isset($_SESSION['member'])) {
+	$sessionUser =  $_SESSION['member'];
+}
 
 // Routes
 $func = 'includes/functions/';   // functions Directory

@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html lang='en'>
-	<head>
-		<meta charset="UTF-8">
-		<title><?php echo page_title(); ?></title>
-		<link rel="stylesheet" href="<?php echo $css;?>font-awesome.min.css">
-		<link rel="stylesheet" href="<?php echo $css;?>bootstrap.min.css">
-		<link rel="stylesheet" href="<?php echo $frontcss;?>frontend.css">
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<title><?php echo page_title(); ?></title>
+	<link rel="stylesheet" href="<?php echo $css;?>font-awesome.min.css">
+	<link rel="stylesheet" href="<?php echo $css;?>bootstrap.min.css">
+	<link rel="stylesheet" href="<?php echo $frontcss;?>frontend.css">
+</head>
 <body>
-	<div class="upper-bar">test</div>
+	<div class="upper-bar">
+		<div class="container">
+			<?php
+				if (isset($_SESSION['member'])){
+					echo ' Hello' . ' ' .  $sessionUser . ' ' . 
+					 "<a href='profile.php'>My Profile</a> - <a href='logout.php'>logout</a>"  . '</br>';
+					$userstatus = userStatus($sessionUser);
+						if ($userstatus == 1) {
+						echo "Your Membership need to be activated";
+						}
+					} else { 
+			?>	
+			<a class='pull-right' href="login.php">Login | Logout</a>
+			<?php } ?>
+		</div>
+	</div>
 	<nav class="navbar navbar-inverse">
   		<div class="container">
 	    <!-- Brand and toggle get grouped for better mobile display -->
@@ -31,8 +46,7 @@
 					echo "<li> <a href='categories.php?pageid=" . $category['ID'] ."&pagename=" . $category['Name'] ."'>" .  $category['Name'] . "</a> </li>";
 				}
 	        ?>
-	      </ul>
-	      
+	      </ul> 
 	    </div><!-- /.navbar-collapse -->
   		</div><!-- /.container -->
 	</nav>
